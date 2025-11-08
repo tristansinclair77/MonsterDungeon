@@ -1,0 +1,68 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:MonsterDungeon.Presentation.Converters">
+    
+    <converters:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
+ 
+    <!-- Themed Button Style -->
+    <Style x:Key="ThemedButton" TargetType="Button">
+ <Setter Property="Background" Value="{Binding ThemeManager.ButtonCoreColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+      <Setter Property="Foreground" Value="{Binding ThemeManager.ButtonTextColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+<Setter Property="BorderBrush" Value="{Binding ThemeManager.ButtonExtrasColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="10,5"/>
+   <Setter Property="FontWeight" Value="Bold"/>
+   <Setter Property="Cursor" Value="Hand"/>
+     <Setter Property="Template">
+     <Setter.Value>
+<ControlTemplate TargetType="Button">
+       <Border Background="{TemplateBinding Background}"
+  BorderBrush="{TemplateBinding BorderBrush}"
+      BorderThickness="{TemplateBinding BorderThickness}"
+    CornerRadius="4"
+Padding="{TemplateBinding Padding}">
+      <ContentPresenter HorizontalAlignment="Center" 
+          VerticalAlignment="Center"/>
+     </Border>
+<ControlTemplate.Triggers>
+   <Trigger Property="IsMouseOver" Value="True">
+      <Setter Property="Opacity" Value="0.8"/>
+   </Trigger>
+  <Trigger Property="IsPressed" Value="True">
+     <Setter Property="Opacity" Value="0.6"/>
+     </Trigger>
+    </ControlTemplate.Triggers>
+</ControlTemplate>
+  </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Themed Window Background Style -->
+    <Style x:Key="ThemedWindowBackground" TargetType="Border">
+     <Setter Property="Background" Value="{Binding ThemeManager.WindowBackgroundColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+      <Setter Property="BorderBrush" Value="{Binding ThemeManager.WindowSecondaryColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+  <Setter Property="CornerRadius" Value="5"/>
+ </Style>
+
+    <!-- Themed Main Header Text Style -->
+  <Style x:Key="ThemedMainHeader" TargetType="TextBlock">
+  <Setter Property="Foreground" Value="{Binding ThemeManager.TextMainHeaderColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+  <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!-- Themed Secondary Header Text Style -->
+    <Style x:Key="ThemedSecondaryHeader" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding ThemeManager.TextSecondaryHeaderColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+<Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <!-- Themed Body Text Style -->
+    <Style x:Key="ThemedBodyText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding ThemeManager.TextBodyColor, Converter={StaticResource HexColorToBrushConverter}, RelativeSource={RelativeSource AncestorType=Window}}"/>
+<Setter Property="FontSize" Value="12"/>
+    </Style>
+
+</ResourceDictionary>
