@@ -37,9 +37,9 @@ services.AddSingleton<CombatViewModel>();
          services.AddSingleton<EnemyFactory>();
        services.AddSingleton<ThemeManager>();
 
-        // Register Infrastructure Services (when ready)
-         // services.AddSingleton<AssetLoader>();
-       })
+        // Register Infrastructure Services
+       services.AddSingleton<MonsterDungeon.Infrastructure.Services.ThemeStorageService>();
+    })
      .Build();
   }
 

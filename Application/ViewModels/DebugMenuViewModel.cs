@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Media;
 using MonsterDungeon.Domain.Services;
 
 namespace MonsterDungeon.Application.ViewModels
@@ -18,6 +19,7 @@ namespace MonsterDungeon.Application.ViewModels
         private List<string> _availableThemes;
         private string _selectedScreen;
         private List<string> _availableScreens;
+        private bool _isColorOptionsExpanded;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -48,6 +50,22 @@ namespace MonsterDungeon.Application.ViewModels
                     if (!string.IsNullOrEmpty(value))
                     {
                         _themeManager.ApplyDebugTheme(value);
+
+                        // Refresh all color properties for the color pickers
+                        OnPropertyChanged(nameof(ButtonCoreColor));
+                        OnPropertyChanged(nameof(ButtonTextColor));
+                        OnPropertyChanged(nameof(ButtonExtrasColor));
+                        OnPropertyChanged(nameof(ScreenBackgroundMainColor));
+                        OnPropertyChanged(nameof(ScreenBackgroundSecondaryColor));
+                        OnPropertyChanged(nameof(HeaderMainColor));
+                        OnPropertyChanged(nameof(HeaderTextColor));
+                        OnPropertyChanged(nameof(HeaderExtrasColor));
+                        OnPropertyChanged(nameof(WindowBackgroundColor));
+                        OnPropertyChanged(nameof(WindowTextColor));
+                        OnPropertyChanged(nameof(WindowSecondaryColor));
+                        OnPropertyChanged(nameof(TextMainHeaderColor));
+                        OnPropertyChanged(nameof(TextSecondaryHeaderColor));
+                        OnPropertyChanged(nameof(TextBodyColor));
                     }
                 }
             }
@@ -98,10 +116,180 @@ namespace MonsterDungeon.Application.ViewModels
         public bool IsCombatScreenVisible => _selectedScreen == "Combat Screen";
         public bool IsMainMenuVisible => _selectedScreen == "Main Menu";
 
+        // Color Options Expander
+        public bool IsColorOptionsExpanded
+        {
+            get => _isColorOptionsExpanded;
+            set
+            {
+                if (_isColorOptionsExpanded != value)
+                {
+                    _isColorOptionsExpanded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // Color Properties for Binding to ColorPickers
+        public Color ButtonCoreColor
+        {
+            get => HexToColor(_themeManager.ButtonCoreColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.ButtonCoreColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color ButtonTextColor
+        {
+            get => HexToColor(_themeManager.ButtonTextColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.ButtonTextColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color ButtonExtrasColor
+        {
+            get => HexToColor(_themeManager.ButtonExtrasColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.ButtonExtrasColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color ScreenBackgroundMainColor
+        {
+            get => HexToColor(_themeManager.ScreenBackgroundMainColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.ScreenBackgroundMainColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color ScreenBackgroundSecondaryColor
+        {
+            get => HexToColor(_themeManager.ScreenBackgroundSecondaryColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.ScreenBackgroundSecondaryColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color HeaderMainColor
+        {
+            get => HexToColor(_themeManager.HeaderMainColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.HeaderMainColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color HeaderTextColor
+        {
+            get => HexToColor(_themeManager.HeaderTextColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.HeaderTextColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color HeaderExtrasColor
+        {
+            get => HexToColor(_themeManager.HeaderExtrasColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.HeaderExtrasColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color WindowBackgroundColor
+        {
+            get => HexToColor(_themeManager.WindowBackgroundColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.WindowBackgroundColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color WindowTextColor
+        {
+            get => HexToColor(_themeManager.WindowTextColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.WindowTextColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color WindowSecondaryColor
+        {
+            get => HexToColor(_themeManager.WindowSecondaryColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.WindowSecondaryColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color TextMainHeaderColor
+        {
+            get => HexToColor(_themeManager.TextMainHeaderColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.TextMainHeaderColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color TextSecondaryHeaderColor
+        {
+            get => HexToColor(_themeManager.TextSecondaryHeaderColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.TextSecondaryHeaderColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
+        public Color TextBodyColor
+        {
+            get => HexToColor(_themeManager.TextBodyColor);
+            set
+            {
+                string hex = ColorToHex(value);
+                _themeManager.UpdateThemeColor(SelectedTheme, nameof(Domain.Models.UITheme.TextBodyColor), hex);
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand ToggleMenuCommand { get; }
         public ICommand HideMenuCommand { get; }
         public ICommand ApplyThemeCommand { get; }
         public ICommand ToggleFullscreenCommand { get; }
+        public ICommand ResetThemeToDefaultCommand { get; }
 
         public DebugMenuViewModel(ThemeManager themeManager)
         {
@@ -132,6 +320,7 @@ namespace MonsterDungeon.Application.ViewModels
             HideMenuCommand = new RelayCommand(HideMenu);
             ApplyThemeCommand = new RelayCommand(ApplyTheme);
             ToggleFullscreenCommand = new RelayCommand(ToggleFullscreen);
+            ResetThemeToDefaultCommand = new RelayCommand(ResetThemeToDefault);
 
             // Initialize to Main Menu and ensure property notifications fire
             SelectedScreen = "Main Menu";
@@ -175,9 +364,57 @@ namespace MonsterDungeon.Application.ViewModels
             // - Fullscreen: WindowState.Maximized, WindowStyle.None
         }
 
+        /// <summary>
+        /// Reset the current theme to default values
+        /// </summary>
+        private void ResetThemeToDefault()
+        {
+            if (!string.IsNullOrEmpty(SelectedTheme))
+            {
+                _themeManager.ResetThemeToDefault(SelectedTheme);
+
+                // Refresh all color properties
+                OnPropertyChanged(nameof(ButtonCoreColor));
+                OnPropertyChanged(nameof(ButtonTextColor));
+                OnPropertyChanged(nameof(ButtonExtrasColor));
+                OnPropertyChanged(nameof(ScreenBackgroundMainColor));
+                OnPropertyChanged(nameof(ScreenBackgroundSecondaryColor));
+                OnPropertyChanged(nameof(HeaderMainColor));
+                OnPropertyChanged(nameof(HeaderTextColor));
+                OnPropertyChanged(nameof(HeaderExtrasColor));
+                OnPropertyChanged(nameof(WindowBackgroundColor));
+                OnPropertyChanged(nameof(WindowTextColor));
+                OnPropertyChanged(nameof(WindowSecondaryColor));
+                OnPropertyChanged(nameof(TextMainHeaderColor));
+                OnPropertyChanged(nameof(TextSecondaryHeaderColor));
+                OnPropertyChanged(nameof(TextBodyColor));
+            }
+        }
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // Helper methods for color conversion
+        private Color HexToColor(string hex)
+        {
+            if (string.IsNullOrEmpty(hex))
+                return Colors.Black;
+
+            try
+            {
+                return (Color)ColorConverter.ConvertFromString(hex);
+            }
+            catch
+            {
+                return Colors.Black;
+            }
+        }
+
+        private string ColorToHex(Color color)
+        {
+            return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
         }
     }
 
