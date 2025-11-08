@@ -34,13 +34,24 @@ namespace MonsterDungeon.Presentation.Views
          {
    _viewModel.DebugMenu.ToggleMenuCommand.Execute(null);
                 e.Handled = true;
+       return;
        }
 
             // Close application with Escape key (useful for borderless window)
             if (e.Key == Key.Escape && !_viewModel.DebugMenu.IsVisible)
   {
                 WpfApplication.Current.Shutdown();
+      e.Handled = true;
+  return;
 }
+            
+     // Allow Left/Right arrow keys to pass through to CombatScreen when it's visible
+      if (_viewModel.DebugMenu.IsCombatScreenVisible && 
+     (e.Key == Key.Left || e.Key == Key.Right))
+   {
+        // Don't mark as handled - let the event bubble down to CombatScreen
+       return;
+      }
       }
 
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

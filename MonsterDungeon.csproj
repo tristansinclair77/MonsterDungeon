@@ -283,7 +283,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Application\README.md" />
+    <None Include="ARCHITECTURE_DOCUMENTATION.md" />
+    <None Include="BUG_FIXES_SUMMARY.md" />
     <None Include="Domain\README.md" />
+    <None Include="IMPLEMENTATION_SUMMARY.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
     <None Include="packages\CommunityToolkit.Mvvm.8.2.2\.signature.p7s" />
@@ -334,7 +337,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="QUICK_FIX_VERIFICATION.md" />
+    <None Include="QUICK_START_GUIDE.md" />
     <None Include="README.md" />
+    <None Include="TESTING_CHECKLIST.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

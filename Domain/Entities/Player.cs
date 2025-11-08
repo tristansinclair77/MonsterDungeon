@@ -24,7 +24,7 @@ public int Level { get; set; }
         {
             // Default starting stats
             X = 4; // Center of grid
-   Y = 8; // Near bottom
+   Y = 9; // Bottom row (grid is 0-9, so 9 is the last row)
             
       Health = 100;
       MaxHealth = 100;

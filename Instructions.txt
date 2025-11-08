@@ -1,1 +1,118 @@
-﻿
+﻿### Visual Studio Copilot Instructions — Player Movement Implementation
+
+#### Objective:
+
+Implement keyboard-based player movement for the combat grid within the **Monster Dungeon** project.
+
+---
+
+### Step 1: Create or Update Player Sprite Handling
+
+* Locate or create a class handling **player rendering and position** (e.g., `PlayerSpriteControl` or within the upcoming `GameView.xaml`).
+* Ensure the **Player entity** has `X` and `Y` coordinates corresponding to grid tile indices.
+* Place the **player sprite** initially in one of the **bottom row grid slots** (e.g., `Y = GridHeight - 1`).
+
+```csharp
+player.Position = new Point(GridWidth / 2, GridHeight - 1); // Center-bottom position
+```
+
+---
+
+### Step 2: Enable Combat Menu Keyboard Input
+
+* In `GameView.xaml.cs` or equivalent combat UI class:
+
+  * Enable **keyboard focus** by setting `Focusable = true` and `Focus()` on load.
+  * Subscribe to the `KeyDown` event for movement input.
+
+```csharp
+this.KeyDown += OnKeyDown;
+```
+
+---
+
+### Step 3: Handle Left and Right Arrow Input
+
+* Implement `OnKeyDown` event to process **Left** and **Right** key presses.
+* Only respond to **key taps**, not held-down keys.
+
+  * Use a **boolean flag** or **KeyUp reset** mechanism to prevent continuous movement.
+* When the key is pressed:
+
+  * Move the player **one tile** left or right if within grid bounds.
+  * If at an edge, ignore movement.
+
+```csharp
+private bool keyPressed = false;
+
+private void OnKeyDown(object sender, KeyEventArgs e)
+{
+    if (keyPressed) return; // Prevent continuous movement
+
+    if (e.Key == Key.Left)
+    {
+        MovePlayer(-1);
+        keyPressed = true;
+    }
+    else if (e.Key == Key.Right)
+    {
+        MovePlayer(1);
+        keyPressed = true;
+    }
+}
+
+private void OnKeyUp(object sender, KeyEventArgs e)
+{
+    keyPressed = false; // Reset when key is released
+}
+```
+
+---
+
+### Step 4: Define MovePlayer() Logic
+
+* Ensure the move checks grid boundaries before updating the player’s position.
+
+```csharp
+private void MovePlayer(int direction)
+{
+    int newX = player.Position.X + direction;
+
+    if (newX >= 0 && newX < GridService.GridWidth)
+    {
+        player.Position = new Point(newX, player.Position.Y);
+        GridService.UpdatePlayerPosition(player); // optional helper
+        RenderPlayer(); // update visual
+    }
+}
+```
+
+---
+
+### Step 5: Rendering Update
+
+* After updating position, visually re-render the **player sprite** in the new grid slot.
+* Use either a **Canvas.SetLeft/SetTop()** method or **Grid-based binding** in XAML.
+
+Example (if using Canvas layout):
+
+```csharp
+Canvas.SetLeft(playerSprite, player.Position.X * TileSize);
+Canvas.SetTop(playerSprite, player.Position.Y * TileSize);
+```
+
+---
+
+### Step 6: Testing
+
+* Run the project.
+* Open the Combat Menu.
+* Verify that:
+
+  * Pressing **Left** or **Right** moves the sprite exactly one tile.
+  * Holding the key does not trigger continuous movement.
+  * The sprite cannot move beyond grid edges.
+
+---
+
+**Result:** The player character sprite correctly responds to discrete Left/Right arrow key presses while respecting grid boundaries and combat mode state.
