@@ -262,6 +262,7 @@
     <None Include="Application\README.md" />
     <None Include="COMBAT_SCREEN_FIX.md" />
     <None Include="COMBAT_SCREEN_IMPLEMENTATION.md" />
+    <None Include="COMPLETE_THEME_INTEGRATION.md" />
     <None Include="COMPREHENSIVE_THEME_SYSTEM.md" />
     <None Include="DEBUG_MENU_IMPLEMENTATION.md" />
     <None Include="Domain\README.md" />
