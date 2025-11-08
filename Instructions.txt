@@ -1,78 +1,63 @@
 ﻿# Copilot Instructions for Monster Dungeon
-# Feature: Base Debug Menu (Toggle with ` key)
+# Feature: Fixed aspect ratio + frameless game window
 
-Create a new WPF user control called **DebugMenu.xaml** inside `Presentation/Views/Debug/`.
-It must serve as an in-game overlay that can be toggled on/off while the game runs.
+Modify MainWindow.xaml and MainWindow.xaml.cs to create a fixed-size, borderless window optimized for game display.
 
-## Core Requirements
-1. **Hotkey Toggle**
-   - Pressing the backtick (`) key shows/hides the Debug Menu overlay.
-   - Implement key listening globally in `MainWindow.xaml.cs`.
-   - When toggled, the menu fades in/out (use basic opacity animation).
+## Requirements
 
-2. **Layout**
-   - The Debug Menu is a semi-transparent panel aligned to the top-left of the screen.
-   - Use a vertical StackPanel inside a Border with rounded corners and drop shadow.
-   - Background color: black with 60% opacity.
-   - Width: 320 px; Height: auto.
-   - ScrollViewer if content exceeds height.
+1. **Window Style**
+   - Remove the Windows title bar completely.
+   - Set the following properties in `MainWindow.xaml`:
+     ```xml
+     WindowStyle="None"
+     ResizeMode="NoResize"
+     AllowsTransparency="False"
+     WindowStartupLocation="CenterScreen"
+     Background="#FF0D0D0D" <!-- or bound to current theme -->
+     ```
+   - Optionally set a subtle drop shadow via MahApps.Metro if desired.
 
-3. **Controls to Include (Base UI)**
-   - A “Close Menu” button (binds to Hide command).
-   - A labeled **Dropdown (ComboBox)** for *Color Scheme Selection*.
-   - A generic **Button**, **Dropdown**, and **TextBox** for future debug items (placeholders).
-   - Each control should have a bound command or property in a new `DebugMenuViewModel`.
-
-4. **Color Scheme Functionality**
-   - Populate the color scheme dropdown with several named themes:
-     - DefaultDark, DefaultLight, Crimson, Emerald, Azure, Amber, Amethyst.
-   - On selection, immediately apply the chosen color scheme to the active window background.
-   - Integrate this by calling a new `ThemeManager.ApplyDebugTheme(string themeName)` method.
-   - This method should temporarily override the current ThemeManager palette for testing.
-
-5. **MVVM Setup**
-   - Add a new ViewModel file: `Application/ViewModels/DebugMenuViewModel.cs`.
-   - Use `[ObservableProperty]` attributes for:
-     - `IsVisible` (bool)
-     - `SelectedTheme` (string)
-     - `AvailableThemes` (List<string>)
-   - Add commands for:
-     - `ToggleMenuCommand`
-     - `ApplyThemeCommand`
-
-6. **Integration**
-   - In `MainViewModel`, hold a reference to `DebugMenuViewModel` injected via DI.
-   - In `MainWindow.xaml`, overlay `<views:DebugMenu Visibility="{Binding DebugMenu.IsVisible, Converter={BooleanToVisibilityConverter}}"/>` on top of main content.
-   - Register `DebugMenuViewModel` as Singleton in `App.xaml.cs`.
-
-7. **ThemeManager Update**
-   - Extend `ThemeManager` with a method:
+2. **Aspect Ratio**
+   - Maintain a 16:9 ratio (e.g., 1280x720) regardless of monitor resolution.
+   - Lock this aspect ratio dynamically in `MainWindow.xaml.cs` by handling `SizeChanged`:
      ```csharp
-     public void ApplyDebugTheme(string themeName)
+     protected override void OnRenderSizeChanged(SizeChangedInfo info)
      {
-         switch (themeName)
-         {
-             case "Crimson": CurrentTheme.PrimaryColor = Colors.Crimson; break;
-             case "Emerald": CurrentTheme.PrimaryColor = Colors.Green; break;
-             case "Azure": CurrentTheme.PrimaryColor = Colors.DeepSkyBlue; break;
-             // etc.
-             default: ResetToDefaultTheme(); break;
-         }
+         const double aspect = 16.0 / 9.0;
+         double newWidth = info.NewSize.Width;
+         double newHeight = newWidth / aspect;
+         if (Math.Abs(info.NewSize.Height - newHeight) > 1)
+             Height = newHeight;
+         base.OnRenderSizeChanged(info);
      }
      ```
-   - Ensure UI refreshes automatically via binding or theme refresh logic.
+   - This prevents window distortion if users try to resize or maximize.
 
-8. **Testing**
-   - Build and run in Debug mode.
-   - Press the backtick key to open/close the overlay.
-   - Changing themes updates the window color in real time.
+3. **Center on Screen**
+   - Set `WindowStartupLocation="CenterScreen"`.
+   - On launch, ensure the size is fixed (1280x720 or 960x540 for smaller windows).
 
-## Files to Modify / Add
-- [NEW] `Presentation/Views/Debug/DebugMenu.xaml`
-- [NEW] `Application/ViewModels/DebugMenuViewModel.cs`
-- [MODIFY] `App.xaml.cs` → Register `DebugMenuViewModel`
-- [MODIFY] `MainViewModel.cs` → Add property for DebugMenuViewModel
-- [MODIFY] `MainWindow.xaml` & `.cs` → Add overlay and toggle key listener
-- [MODIFY] `ThemeManager.cs` → Add `ApplyDebugTheme()` method
+4. **Optional Fullscreen Mode (Debug Toggle)**
+   - Add a future-ready command (in DebugMenuViewModel) for “Toggle Fullscreen.”
+   - This will switch between:
+     ```csharp
+     WindowStyle = WindowStyle.None;
+     WindowState = WindowState.Maximized;
+     ```
+     and back to windowed mode (1280x720, centered).
 
-Result: A fully functional debug overlay accessible at runtime for theme testing and future debugging actions.
+5. **Next Steps Placeholder**
+   - Prepare an inner Grid named `GameRoot` that will contain all future UI/HUD layers.
+   - It should auto-scale contents if fullscreen is added later:
+     ```xml
+     <Viewbox Stretch="Uniform">
+         <Grid x:Name="GameRoot" Width="1280" Height="720" />
+     </Viewbox>
+     ```
+
+## Files to Modify
+- [MODIFY] `Presentation/Views/MainWindow.xaml`
+- [MODIFY] `Presentation/Views/MainWindow.xaml.cs`
+- [OPTIONAL] `DebugMenuViewModel.cs` → Add placeholder `ToggleFullscreenCommand`
+
+Result: The game runs in a clean, borderless, fixed 16:9 frame centered on the screen, perfectly suited for pixel-perfect HUD and gameplay rendering.

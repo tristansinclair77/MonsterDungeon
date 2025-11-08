@@ -6,41 +6,46 @@
         xmlns:local="clr-namespace:MonsterDungeon.Presentation.Views"
         xmlns:debug="clr-namespace:MonsterDungeon.Presentation.Views.Debug"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="600" Width="800"
+        Title="{Binding Title}" Height="720" Width="1280"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="False"
         WindowStartupLocation="CenterScreen"
         Background="{Binding ThemeManager.CurrentDebugThemePrimaryColor, Converter={StaticResource HexColorToBrushConverter}}">
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid x:Name="GameRoot" Width="1280" Height="720">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Background="{Binding ThemeManager.CurrentDebugThemeSecondaryColor, Converter={StaticResource HexColorToBrushConverter}}" Padding="10">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Title}" 
-                           FontSize="24" 
-                           FontWeight="Bold"
-                           Foreground="#e94560"/>
-                <TextBlock Text="{Binding Version}" 
-                           FontSize="12" 
-                           Foreground="#a0a0a0"
-                           Margin="10,0,0,0"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
+            <!-- Header -->
+            <Border Grid.Row="0" Background="{Binding ThemeManager.CurrentDebugThemeSecondaryColor, Converter={StaticResource HexColorToBrushConverter}}" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Title}" 
+                               FontSize="24" 
+                               FontWeight="Bold"
+                               Foreground="#e94560"/>
+                    <TextBlock Text="{Binding Version}" 
+                               FontSize="12" 
+                               Foreground="#a0a0a0"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
 
-        <!-- Main Content Frame -->
-        <Frame x:Name="MainFrame" 
-               Grid.Row="1"
-               NavigationUIVisibility="Hidden" 
-               Background="Transparent"/>
-        
-        <!-- Debug Menu Overlay -->
-        <debug:DebugMenu Grid.RowSpan="2" 
-                         DataContext="{Binding DebugMenu}"
-                         Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                         Panel.ZIndex="1000"/>
-    </Grid>
+            <!-- Main Content Frame -->
+            <Frame x:Name="MainFrame" 
+                   Grid.Row="1"
+                   NavigationUIVisibility="Hidden" 
+                   Background="Transparent"/>
+            
+            <!-- Debug Menu Overlay -->
+            <debug:DebugMenu Grid.RowSpan="2" 
+                             DataContext="{Binding DebugMenu}"
+                             Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             Panel.ZIndex="1000"/>
+        </Grid>
+    </Viewbox>
 </Window>

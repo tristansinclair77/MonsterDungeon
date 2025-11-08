@@ -67,6 +67,7 @@ namespace MonsterDungeon.Application.ViewModels
         public ICommand ToggleMenuCommand { get; }
         public ICommand HideMenuCommand { get; }
         public ICommand ApplyThemeCommand { get; }
+        public ICommand ToggleFullscreenCommand { get; }
 
         public DebugMenuViewModel(ThemeManager themeManager)
         {
@@ -89,6 +90,7 @@ namespace MonsterDungeon.Application.ViewModels
             ToggleMenuCommand = new RelayCommand(ToggleMenu);
             HideMenuCommand = new RelayCommand(HideMenu);
             ApplyThemeCommand = new RelayCommand(ApplyTheme);
+            ToggleFullscreenCommand = new RelayCommand(ToggleFullscreen);
         }
 
         /// <summary>
@@ -116,6 +118,17 @@ namespace MonsterDungeon.Application.ViewModels
             {
                 _themeManager.ApplyDebugTheme(SelectedTheme);
             }
+        }
+
+        /// <summary>
+        /// Toggle fullscreen mode (future implementation)
+        /// </summary>
+        private void ToggleFullscreen()
+        {
+            // TODO: Implement fullscreen toggle
+            // This will be connected to MainWindow to switch between:
+            // - Windowed: 1280x720, centered, WindowStyle.None
+            // - Fullscreen: WindowState.Maximized, WindowStyle.None
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
