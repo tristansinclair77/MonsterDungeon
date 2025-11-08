@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MonsterDungeon.Presentation.Views"
+        xmlns:debug="clr-namespace:MonsterDungeon.Presentation.Views.Debug"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
-        Background="#1a1a2e">
+        Background="{Binding ThemeManager.CurrentDebugThemePrimaryColor, Converter={StaticResource HexColorToBrushConverter}}">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#16213e" Padding="10">
+        <Border Grid.Row="0" Background="{Binding ThemeManager.CurrentDebugThemeSecondaryColor, Converter={StaticResource HexColorToBrushConverter}}" Padding="10">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Title}" 
                            FontSize="24" 
@@ -34,5 +36,11 @@
                Grid.Row="1"
                NavigationUIVisibility="Hidden" 
                Background="Transparent"/>
+        
+        <!-- Debug Menu Overlay -->
+        <debug:DebugMenu Grid.RowSpan="2" 
+                         DataContext="{Binding DebugMenu}"
+                         Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                         Panel.ZIndex="1000"/>
     </Grid>
 </Window>

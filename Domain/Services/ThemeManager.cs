@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using MonsterDungeon.Domain.Enums;
 
 namespace MonsterDungeon.Domain.Services
@@ -8,17 +9,43 @@ namespace MonsterDungeon.Domain.Services
     /// Manages dungeon themes, affinities, and visual transitions
     /// Based on Dungeon Themes Document
     /// </summary>
-    public class ThemeManager
+    public class ThemeManager : INotifyPropertyChanged
     {
-        private DungeonTheme _currentTheme;
+    private DungeonTheme _currentTheme;
         private readonly Dictionary<DungeonTheme, ThemeData> _themeData;
+        private string _currentDebugThemePrimaryColor;
+        private string _currentDebugThemeSecondaryColor;
+
+    public event PropertyChangedEventHandler PropertyChanged;
 
         public DungeonTheme CurrentTheme => _currentTheme;
 
+        public string CurrentDebugThemePrimaryColor
+        {
+         get => _currentDebugThemePrimaryColor;
+     private set
+            {
+       _currentDebugThemePrimaryColor = value;
+    OnPropertyChanged(nameof(CurrentDebugThemePrimaryColor));
+            }
+        }
+
+     public string CurrentDebugThemeSecondaryColor
+        {
+   get => _currentDebugThemeSecondaryColor;
+    private set
+            {
+     _currentDebugThemeSecondaryColor = value;
+    OnPropertyChanged(nameof(CurrentDebugThemeSecondaryColor));
+        }
+ }
+
         public ThemeManager()
         {
-       _themeData = InitializeThemeData();
-      _currentTheme = DungeonTheme.Caverns; // Start with Caverns
+     _themeData = InitializeThemeData();
+          _currentTheme = DungeonTheme.Caverns; // Start with Caverns
+            _currentDebugThemePrimaryColor = "#1a1a2e";
+         _currentDebugThemeSecondaryColor = "#16213e";
         }
 
    /// <summary>
@@ -136,6 +163,55 @@ namespace MonsterDungeon.Domain.Services
      (a == ElementalAffinity.Light && b == ElementalAffinity.Dark) ||
          (a == ElementalAffinity.Dark && b == ElementalAffinity.Light);
         }
+
+        /// <summary>
+        /// Apply a debug theme for testing purposes
+        /// This temporarily changes the visual theme without affecting game logic
+        /// </summary>
+        public void ApplyDebugTheme(string themeName)
+{
+            switch (themeName)
+         {
+         case "DefaultDark":
+        CurrentDebugThemePrimaryColor = "#1a1a2e";
+      CurrentDebugThemeSecondaryColor = "#16213e";
+         break;
+        case "DefaultLight":
+         CurrentDebugThemePrimaryColor = "#f8f9fa";
+     CurrentDebugThemeSecondaryColor = "#e9ecef";
+         break;
+     case "Crimson":
+        CurrentDebugThemePrimaryColor = "#d62828";
+         CurrentDebugThemeSecondaryColor = "#9d0208";
+        break;
+                case "Emerald":
+        CurrentDebugThemePrimaryColor = "#2d6a4f";
+             CurrentDebugThemeSecondaryColor = "#1b4332";
+         break;
+         case "Azure":
+      CurrentDebugThemePrimaryColor = "#0077b6";
+        CurrentDebugThemeSecondaryColor = "#023e8a";
+     break;
+          case "Amber":
+ CurrentDebugThemePrimaryColor = "#f77f00";
+       CurrentDebugThemeSecondaryColor = "#d62828";
+  break;
+           case "Amethyst":
+        CurrentDebugThemePrimaryColor = "#7209b7";
+    CurrentDebugThemeSecondaryColor = "#560bad";
+ break;
+      default:
+               // Reset to default dark theme
+  CurrentDebugThemePrimaryColor = "#1a1a2e";
+             CurrentDebugThemeSecondaryColor = "#16213e";
+    break;
+          }
+    }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+   }
     }
 
     /// <summary>

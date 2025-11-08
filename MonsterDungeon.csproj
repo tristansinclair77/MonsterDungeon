@@ -202,6 +202,7 @@
     </Compile>
     <Compile Include="Application\Services\GameFlowService.cs" />
     <Compile Include="Application\Services\GridService.cs" />
+    <Compile Include="Application\ViewModels\DebugMenuViewModel.cs" />
     <Compile Include="Application\ViewModels\MainViewModel.cs" />
     <Compile Include="Domain\Entities\Enemy.cs" />
     <Compile Include="Domain\Entities\Inventory.cs" />
@@ -212,12 +213,19 @@
     <Compile Include="Domain\Enums\GameEnums.cs" />
     <Compile Include="Domain\Services\EnemyFactory.cs" />
     <Compile Include="Domain\Services\ThemeManager.cs" />
+    <Page Include="Presentation\Views\Debug\DebugMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\Converters\HexColorToBrushConverter.cs" />
+    <Compile Include="Presentation\Views\Debug\DebugMenu.xaml.cs">
+      <DependentUpon>DebugMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -239,6 +247,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Application\README.md" />
+    <None Include="DEBUG_MENU_IMPLEMENTATION.md" />
     <None Include="Domain\README.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
@@ -300,7 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Resource Include="ChatGPT Information.txt" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.3\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
