@@ -1,0 +1,110 @@
+<UserControl x:Class="MonsterDungeon.Presentation.Views.Game.MainMenu"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:MonsterDungeon.Presentation.Views.Game"
+    xmlns:converters="clr-namespace:MonsterDungeon.Presentation.Converters"
+    mc:Ignorable="d" 
+    d:DesignHeight="720" d:DesignWidth="1280">
+    
+<UserControl.Resources>
+        <converters:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
+    </UserControl.Resources>
+  
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1280" Height="720">
+     <Grid.RowDefinitions>
+       <RowDefinition Height="Auto"/>
+<RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+       <!-- HEADER AREA -->
+            <Border Grid.Row="0" 
+            Background="{Binding DataContext.ThemeManager.WindowBackgroundColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}" 
+       BorderBrush="{Binding DataContext.ThemeManager.ButtonCoreColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+           BorderThickness="0,0,0,2"
+        Padding="15,10">
+    <TextBlock Text="Monster Dungeon - Main Menu" 
+FontSize="22" 
+      FontWeight="Bold"
+ Foreground="{Binding DataContext.ThemeManager.TextMainHeaderColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+         HorizontalAlignment="Center"/>
+     </Border>
+
+     <!-- MAIN MENU CONTENT -->
+            <Grid Grid.Row="1">
+ <Border Background="{Binding DataContext.ThemeManager.ScreenBackgroundMainColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+       Padding="20">
+    <StackPanel VerticalAlignment="Center" 
+        HorizontalAlignment="Center"
+    Width="500">
+     
+       <!-- Title -->
+     <TextBlock Text="MONSTER DUNGEON" 
+ FontSize="36" 
+  FontWeight="Bold"
+    Foreground="{Binding DataContext.ThemeManager.TextMainHeaderColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+  HorizontalAlignment="Center"
+      Margin="0,0,0,40"
+     TextWrapping="Wrap"
+      TextAlignment="Center"/>
+
+     <!-- Menu Buttons -->
+       <Button Content="New Game" 
+   Background="{Binding DataContext.ThemeManager.ButtonCoreColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+   Foreground="{Binding DataContext.ThemeManager.ButtonTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+         BorderBrush="{Binding DataContext.ThemeManager.ButtonExtrasColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+     BorderThickness="2"
+            Padding="20,15"
+  FontSize="18"
+  FontWeight="Bold"
+          Cursor="Hand"
+          Margin="0,10"/>
+
+  <Button Content="Continue" 
+        Background="{Binding DataContext.ThemeManager.ButtonCoreColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+             Foreground="{Binding DataContext.ThemeManager.ButtonTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+      BorderBrush="{Binding DataContext.ThemeManager.ButtonExtrasColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+   BorderThickness="2"
+              Padding="20,15"
+       FontSize="18"
+     FontWeight="Bold"
+ Cursor="Hand"
+     Margin="0,10"/>
+
+              <Button Content="Settings" 
+     Background="{Binding DataContext.ThemeManager.ButtonCoreColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+     Foreground="{Binding DataContext.ThemeManager.ButtonTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+        BorderBrush="{Binding DataContext.ThemeManager.ButtonExtrasColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+         BorderThickness="2"
+      Padding="20,15"
+  FontSize="18"
+        FontWeight="Bold"
+       Cursor="Hand"
+  Margin="0,10"/>
+
+      <Button Content="Exit" 
+   Background="{Binding DataContext.ThemeManager.ButtonCoreColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+Foreground="{Binding DataContext.ThemeManager.ButtonTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+      BorderBrush="{Binding DataContext.ThemeManager.ButtonExtrasColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+BorderThickness="2"
+      Padding="20,15"
+     FontSize="18"
+      FontWeight="Bold"
+     Cursor="Hand"
+        Margin="0,10"/>
+
+          <!-- Version Info -->
+    <TextBlock Text="v0.1.0-alpha" 
+     FontSize="14"
+    Foreground="{Binding DataContext.ThemeManager.TextBodyColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
+          HorizontalAlignment="Center"
+Margin="0,30,0,0"
+ Opacity="0.7"/>
+        </StackPanel>
+    </Border>
+       </Grid>
+  </Grid>
+    </Viewbox>
+</UserControl>

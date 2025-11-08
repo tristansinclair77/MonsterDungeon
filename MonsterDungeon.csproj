@@ -236,6 +236,9 @@
     <Page Include="Presentation\Views\Game\CombatScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Presentation\Views\Game\MainMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +258,9 @@
     </Compile>
     <Compile Include="Presentation\Views\Game\CombatScreen.xaml.cs">
       <DependentUpon>CombatScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Game\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
