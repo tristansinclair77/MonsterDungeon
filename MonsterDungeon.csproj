@@ -238,10 +238,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ACTION_REQUIRED.md" />
     <None Include="Application\README.md" />
     <None Include="Domain\README.md" />
-    <None Include="GDD_IMPLEMENTATION_STATUS.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
     <None Include="packages\CommunityToolkit.Mvvm.8.2.2\.signature.p7s" />
@@ -287,18 +285,12 @@
     <None Include="packages\System.Text.Json.8.0.0\buildTransitive\netstandard2.0\System.Text.Json.targets" />
     <None Include="packages\System.Text.Json.8.0.0\PACKAGE.md" />
     <None Include="packages\System.Text.Json.8.0.0\System.Text.Json.8.0.0.nupkg" />
-    <None Include="PACKAGE_RESTORE_FIXED.md" />
     <None Include="Presentation\README.md" />
-    <None Include="PROJECT_SETUP_STATUS.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="QUICK_REFERENCE.md" />
     <None Include="README.md" />
-    <None Include="SETUP_COMPLETE.md" />
-    <None Include="SETUP_SUMMARY.md" />
-    <None Include="VISUAL_STUDIO_SETUP.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -308,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="ChatGPT Information.txt" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
     <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.3\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
