@@ -27,6 +27,7 @@ namespace MonsterDungeon
        // Register ViewModels
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<DebugMenuViewModel>();
+services.AddSingleton<CombatViewModel>();
 
    // Register Application Services
        services.AddSingleton<GameFlowService>();

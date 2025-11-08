@@ -13,11 +13,13 @@ namespace MonsterDungeon.Application.ViewModels
 
         public DebugMenuViewModel DebugMenu { get; }
         public ThemeManager ThemeManager { get; }
+        public CombatViewModel CombatView { get; }
 
-        public MainViewModel(DebugMenuViewModel debugMenuViewModel, ThemeManager themeManager)
+        public MainViewModel(DebugMenuViewModel debugMenuViewModel, ThemeManager themeManager, CombatViewModel combatViewModel)
         {
             DebugMenu = debugMenuViewModel;
             ThemeManager = themeManager;
+            CombatView = combatViewModel;
         }
     }
 }

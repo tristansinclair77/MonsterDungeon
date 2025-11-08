@@ -1,63 +1,162 @@
 ﻿# Copilot Instructions for Monster Dungeon
-# Feature: Fixed aspect ratio + frameless game window
 
-Modify MainWindow.xaml and MainWindow.xaml.cs to create a fixed-size, borderless window optimized for game display.
+# Feature: Base Combat Screen (Main Gameplay HUD)
 
-## Requirements
+Create a new WPF UserControl named **CombatScreen.xaml** under `Presentation/Views/Game/`.
+This will be the primary gameplay screen for combat encounters.
 
-1. **Window Style**
-   - Remove the Windows title bar completely.
-   - Set the following properties in `MainWindow.xaml`:
-     ```xml
-     WindowStyle="None"
-     ResizeMode="NoResize"
-     AllowsTransparency="False"
-     WindowStartupLocation="CenterScreen"
-     Background="#FF0D0D0D" <!-- or bound to current theme -->
-     ```
-   - Optionally set a subtle drop shadow via MahApps.Metro if desired.
+## Layout Overview
 
-2. **Aspect Ratio**
-   - Maintain a 16:9 ratio (e.g., 1280x720) regardless of monitor resolution.
-   - Lock this aspect ratio dynamically in `MainWindow.xaml.cs` by handling `SizeChanged`:
-     ```csharp
-     protected override void OnRenderSizeChanged(SizeChangedInfo info)
-     {
-         const double aspect = 16.0 / 9.0;
-         double newWidth = info.NewSize.Width;
-         double newHeight = newWidth / aspect;
-         if (Math.Abs(info.NewSize.Height - newHeight) > 1)
-             Height = newHeight;
-         base.OnRenderSizeChanged(info);
-     }
-     ```
-   - This prevents window distortion if users try to resize or maximize.
+Design this screen using a fixed 16:9 area (1280x720) with three main columns:
 
-3. **Center on Screen**
-   - Set `WindowStartupLocation="CenterScreen"`.
-   - On launch, ensure the size is fixed (1280x720 or 960x540 for smaller windows).
+* Left Panel: Player input & contextual options
+* Center Panel: Combat grid
+* Right Panel: Player info (image, stats, equipment)
+* Top Header: Game title/info area
 
-4. **Optional Fullscreen Mode (Debug Toggle)**
-   - Add a future-ready command (in DebugMenuViewModel) for “Toggle Fullscreen.”
-   - This will switch between:
-     ```csharp
-     WindowStyle = WindowStyle.None;
-     WindowState = WindowState.Maximized;
-     ```
-     and back to windowed mode (1280x720, centered).
+Use `Grid` as the root layout with defined row/column structure.
 
-5. **Next Steps Placeholder**
-   - Prepare an inner Grid named `GameRoot` that will contain all future UI/HUD layers.
-   - It should auto-scale contents if fullscreen is added later:
-     ```xml
-     <Viewbox Stretch="Uniform">
-         <Grid x:Name="GameRoot" Width="1280" Height="720" />
-     </Viewbox>
-     ```
+---
 
-## Files to Modify
-- [MODIFY] `Presentation/Views/MainWindow.xaml`
-- [MODIFY] `Presentation/Views/MainWindow.xaml.cs`
-- [OPTIONAL] `DebugMenuViewModel.cs` → Add placeholder `ToggleFullscreenCommand`
+### 1️⃣ ROOT GRID SETUP
 
-Result: The game runs in a clean, borderless, fixed 16:9 frame centered on the screen, perfectly suited for pixel-perfect HUD and gameplay rendering.
+* Outer container: `<Grid>` inside a `<Viewbox>` (for resolution scaling).
+* Grid rows:
+
+  * Row 0: Header (auto height)
+  * Row 1: Main content (stretch)
+* Grid columns:
+
+  * Three main areas: Left, Center, Right
+
+```xml
+<Grid.RowDefinitions>
+    <RowDefinition Height="Auto"/>
+    <RowDefinition Height="*"/>
+</Grid.RowDefinitions>
+
+<Grid.ColumnDefinitions>
+    <ColumnDefinition Width="3*"/>  <!-- Left -->
+    <ColumnDefinition Width="6*"/>  <!-- Center -->
+    <ColumnDefinition Width="3*"/>  <!-- Right -->
+</Grid.ColumnDefinitions>
+```
+
+---
+
+### 2️⃣ HEADER AREA
+
+* Add a `<Border>` across the top row with a dark background and light text.
+* TextBlock centered: “Monster Dungeon – Combat Mode”
+* Bindable area for future data (e.g., gold, level, status).
+
+---
+
+### 3️⃣ LEFT PANEL
+
+Inside the left column, create two vertical sections:
+
+#### a. Context Display Area
+
+* Use a `<Border>` with padding and a ScrollViewer.
+* Placeholder `TextBlock` that says: “Context Display Area (Spells, Inventory, etc.)”
+* This will later host dynamic content bound to a ViewModel collection.
+
+#### b. Action Buttons
+
+* Below the display area, add a horizontal `StackPanel` of three buttons:
+
+  * Attack
+  * Spells
+  * Items
+* Each button triggers a command (`AttackCommand`, `OpenSpellsCommand`, `OpenItemsCommand`).
+
+---
+
+### 4️⃣ CENTER PANEL — COMBAT FIELD
+
+* Use a `<UniformGrid>` for the combat field.
+* Size: 8 columns × 10 rows (matching GridService layout).
+* Each cell: bordered square placeholder (for now, colored boxes or images later).
+* Centered label: “Combat Field”.
+
+---
+
+### 5️⃣ RIGHT PANEL — PLAYER INFO
+
+Stack three bordered areas vertically:
+
+* Player Image placeholder
+* Player Stats section (for HP, MP, Level)
+* Player Equipment slots (Weapon, Armor, Accessory)
+
+Each section can contain just a `TextBlock` with its label for now.
+
+---
+
+### 6️⃣ VIEWMODEL SETUP
+
+Create a new file `CombatViewModel.cs` under `Application/ViewModels/`.
+Use `[ObservableProperty]` for:
+
+* `SelectedContextMenu` (string)
+* `CurrentGrid` (2D ObservableCollection<Tile> for future use)
+* `PlayerInfo` (object placeholder)
+  Add `RelayCommand` for:
+* `AttackCommand`
+* `OpenSpellsCommand`
+* `OpenItemsCommand`
+
+Each command should update `SelectedContextMenu` to show the chosen category in the left panel.
+
+---
+
+### 7️⃣ MAINWINDOW INTEGRATION
+
+In `MainViewModel`, add property:
+
+```csharp
+public CombatViewModel CombatView { get; }
+```
+
+Resolve via DI and bind it to a `ContentControl` in `MainWindow.xaml` when the game is in combat mode.
+
+Example placeholder:
+
+```xml
+<ContentControl Content="{Binding CombatView}" />
+```
+
+---
+
+### 8️⃣ STYLING
+
+Use simple red headers and brownish borders (as in the reference image).
+Define a few colors in `Resources/Colors.xaml`:
+
+* `HUDBackground = #1a1a2e`
+* `HUDAccent = #e94560`
+* `HUDOutline = #b36b3d`
+* `HUDText = #fff`
+
+---
+
+### 9️⃣ FILES TO ADD / MODIFY
+
+* [NEW] `Presentation/Views/Game/CombatScreen.xaml`
+* [NEW] `Application/ViewModels/CombatViewModel.cs`
+* [MODIFY] `App.xaml.cs` → Register `CombatViewModel`
+* [MODIFY] `MainViewModel.cs` → Add reference property for CombatView
+* [MODIFY] `MainWindow.xaml` → Insert CombatScreen for active gameplay state
+
+---
+
+### 🔧 ADDITIONAL IMPLEMENTATION DETAILS
+
+* Include all setup and integration steps above for Copilot generation.
+* Ensure all bindings, containers, and empty elements exist to accept future expansions.
+* Do not add temporary data or mock UI content.
+* Maintain consistency with existing theme colors and MVVM pattern.
+
+Result:
+A fully functional **CombatScreen UI framework** that mirrors the reference layout, obeys the fixed aspect ratio, and is ready for binding to gameplay systems later — with no temp logic or data.

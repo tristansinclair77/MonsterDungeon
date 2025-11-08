@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- HUD Color Palette -->
+    <Color x:Key="HUDBackground">#1a1a2e</Color>
+    <Color x:Key="HUDAccent">#e94560</Color>
+    <Color x:Key="HUDOutline">#b36b3d</Color>
+    <Color x:Key="HUDText">#ffffff</Color>
+    
+    <!-- SolidColorBrush versions -->
+    <SolidColorBrush x:Key="HUDBackgroundBrush" Color="{StaticResource HUDBackground}"/>
+    <SolidColorBrush x:Key="HUDAccentBrush" Color="{StaticResource HUDAccent}"/>
+    <SolidColorBrush x:Key="HUDOutlineBrush" Color="{StaticResource HUDOutline}"/>
+    <SolidColorBrush x:Key="HUDTextBrush" Color="{StaticResource HUDText}"/>
+    
+</ResourceDictionary>

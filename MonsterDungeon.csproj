@@ -202,6 +202,7 @@
     </Compile>
     <Compile Include="Application\Services\GameFlowService.cs" />
     <Compile Include="Application\Services\GridService.cs" />
+    <Compile Include="Application\ViewModels\CombatViewModel.cs" />
     <Compile Include="Application\ViewModels\DebugMenuViewModel.cs" />
     <Compile Include="Application\ViewModels\MainViewModel.cs" />
     <Compile Include="Domain\Entities\Enemy.cs" />
@@ -216,15 +217,23 @@
     <Page Include="Presentation\Views\Debug\DebugMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Presentation\Views\Game\CombatScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Presentation\Converters\HexColorToBrushConverter.cs" />
     <Compile Include="Presentation\Views\Debug\DebugMenu.xaml.cs">
       <DependentUpon>DebugMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Views\Game\CombatScreen.xaml.cs">
+      <DependentUpon>CombatScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -247,8 +256,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Application\README.md" />
+    <None Include="COMBAT_SCREEN_FIX.md" />
+    <None Include="COMBAT_SCREEN_IMPLEMENTATION.md" />
     <None Include="DEBUG_MENU_IMPLEMENTATION.md" />
     <None Include="Domain\README.md" />
+    <None Include="FINAL_COMBAT_SCREEN_FIX.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
     <None Include="packages\CommunityToolkit.Mvvm.8.2.2\.signature.p7s" />
@@ -300,6 +312,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="README.md" />
+    <None Include="SCREEN_DEFAULT_FIX.md" />
+    <None Include="SCREEN_SELECTOR_IMPLEMENTATION.md" />
+    <None Include="THEME_OVERLAY_FIX.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

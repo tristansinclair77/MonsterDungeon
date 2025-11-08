@@ -4,7 +4,13 @@
              xmlns:local="clr-namespace:MonsterDungeon"
              xmlns:converters="clr-namespace:MonsterDungeon.Presentation.Converters">
     <Application.Resources>
-        <converters:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Colors.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converters:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
