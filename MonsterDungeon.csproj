@@ -283,13 +283,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Application\README.md" />
-    <None Include="COMBAT_SCREEN_FIX.md" />
-    <None Include="COMBAT_SCREEN_IMPLEMENTATION.md" />
-    <None Include="COMPLETE_THEME_INTEGRATION.md" />
-    <None Include="COMPREHENSIVE_THEME_SYSTEM.md" />
-    <None Include="DEBUG_MENU_IMPLEMENTATION.md" />
     <None Include="Domain\README.md" />
-    <None Include="FINAL_COMBAT_SCREEN_FIX.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
     <None Include="packages\CommunityToolkit.Mvvm.8.2.2\.signature.p7s" />
@@ -341,12 +335,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="README.md" />
-    <None Include="SCREEN_DEFAULT_FIX.md" />
-    <None Include="SCREEN_SELECTOR_IMPLEMENTATION.md" />
-    <None Include="THEME_CUSTOMIZATION_COMPLETE.md" />
-    <None Include="THEME_CUSTOMIZATION_FINAL_STEP.md" />
-    <None Include="THEME_CUSTOMIZATION_STATUS.md" />
-    <None Include="THEME_OVERLAY_FIX.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
