@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A9C22E75-C9D5-40C4-8C84-D8C5550E84D1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MonsterDungeon</RootNamespace>
+    <AssemblyName>MonsterDungeon</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommunityToolkit.Mvvm, Version=8.4.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
+      <HintPath>packages\CommunityToolkit.Mvvm.8.4.0\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.6.6.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.2.4.11\lib\net47\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Binder.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.CommandLine, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.CommandLine.8.0.0\lib\net462\Microsoft.Extensions.Configuration.CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.EnvironmentVariables.8.0.0\lib\net462\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.FileExtensions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Json.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.UserSecrets, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.UserSecrets.8.0.0\lib\net462\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Diagnostics.8.0.0\lib\net462\Microsoft.Extensions.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Diagnostics.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileProviders.Physical.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.FileSystemGlobbing.8.0.0\lib\net462\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Hosting.8.0.0\lib\net462\Microsoft.Extensions.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.8.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Console, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Console.8.0.0\lib\net462\Microsoft.Extensions.Logging.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Debug, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.Debug.8.0.0\lib\net462\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventLog, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.EventLog.8.0.0\lib\net462\Microsoft.Extensions.Logging.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Logging.EventSource.8.0.0\lib\net462\Microsoft.Extensions.Logging.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.8.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Options.ConfigurationExtensions.8.0.0\lib\net462\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.8.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.8.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Application\Services\GameFlowService.cs" />
+    <Compile Include="Application\Services\GridService.cs" />
+    <Compile Include="Application\ViewModels\MainViewModel.cs" />
+    <Compile Include="Domain\Entities\Enemy.cs" />
+    <Compile Include="Domain\Entities\Inventory.cs" />
+    <Compile Include="Domain\Entities\Item.cs" />
+    <Compile Include="Domain\Entities\Player.cs" />
+    <Compile Include="Domain\Entities\Spell.cs" />
+    <Compile Include="Domain\Entities\Tile.cs" />
+    <Compile Include="Domain\Enums\GameEnums.cs" />
+    <Compile Include="Domain\Services\EnemyFactory.cs" />
+    <Compile Include="Domain\Services\ThemeManager.cs" />
+    <Page Include="Presentation\Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Presentation\Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="ACTION_REQUIRED.md" />
+    <None Include="Application\README.md" />
+    <None Include="Domain\README.md" />
+    <None Include="GDD_IMPLEMENTATION_STATUS.md" />
+    <None Include="Infrastructure\README.md" />
+    <None Include="packages.config" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\.signature.p7s" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\buildTransitive\netstandard2.0\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\buildTransitive\netstandard2.1\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.0\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.1\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\CommunityToolkit.Mvvm.8.2.2.nupkg" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.2.2\License.md" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\buildTransitive\net461\Microsoft.Extensions.DependencyInjection.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\buildTransitive\net6.0\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\buildTransitive\netcoreapp2.0\Microsoft.Extensions.DependencyInjection.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\Microsoft.Extensions.DependencyInjection.8.0.0.nupkg" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\PACKAGE.md" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\buildTransitive\net461\Microsoft.Extensions.DependencyInjection.Abstractions.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\buildTransitive\net6.0\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\buildTransitive\netcoreapp2.0\Microsoft.Extensions.DependencyInjection.Abstractions.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0.nupkg" />
+    <None Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\PACKAGE.md" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\buildTransitive\net461\Microsoft.Extensions.Hosting.targets" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\buildTransitive\net6.0\_._" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\buildTransitive\netcoreapp2.0\Microsoft.Extensions.Hosting.targets" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\Microsoft.Extensions.Hosting.8.0.0.nupkg" />
+    <None Include="packages\Microsoft.Extensions.Hosting.8.0.0\PACKAGE.md" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\buildTransitive\net461\Microsoft.Extensions.Hosting.Abstractions.targets" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\buildTransitive\net6.0\_._" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\buildTransitive\netcoreapp2.0\Microsoft.Extensions.Hosting.Abstractions.targets" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\Microsoft.Extensions.Hosting.Abstractions.8.0.0.nupkg" />
+    <None Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\PACKAGE.md" />
+    <None Include="packages\System.Text.Json.8.0.0\.signature.p7s" />
+    <None Include="packages\System.Text.Json.8.0.0\buildTransitive\net461\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.8.0.0\buildTransitive\net462\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.8.0.0\buildTransitive\net6.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.8.0.0\buildTransitive\netcoreapp2.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.8.0.0\buildTransitive\netstandard2.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.8.0.0\PACKAGE.md" />
+    <None Include="packages\System.Text.Json.8.0.0\System.Text.Json.8.0.0.nupkg" />
+    <None Include="PACKAGE_RESTORE_FIXED.md" />
+    <None Include="Presentation\README.md" />
+    <None Include="PROJECT_SETUP_STATUS.md" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="QUICK_REFERENCE.md" />
+    <None Include="README.md" />
+    <None Include="SETUP_COMPLETE.md" />
+    <None Include="SETUP_SUMMARY.md" />
+    <None Include="VISUAL_STUDIO_SETUP.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Instructions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.3\cs\CommunityToolkit.Mvvm.CodeFixers.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\analyzers\dotnet\roslyn4.3\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.2.2\Icon.png" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\net6.0\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\net6.0\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\net6.0\CommunityToolkit.Mvvm.xml" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.0\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.0\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.0\CommunityToolkit.Mvvm.xml" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.1\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.1\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.2.2\lib\netstandard2.1\CommunityToolkit.Mvvm.xml" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.2.2\ThirdPartyNotices.txt" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net6.0\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net6.0\Microsoft.Extensions.DependencyInjection.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net7.0\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net7.0\Microsoft.Extensions.DependencyInjection.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.xml" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\LICENSE.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.8.0.0\useSharedDesignerContext.txt" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\LICENSE.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\useSharedDesignerContext.txt" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net462\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net462\Microsoft.Extensions.Hosting.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net6.0\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net6.0\Microsoft.Extensions.Hosting.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net7.0\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net7.0\Microsoft.Extensions.Hosting.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\netstandard2.1\Microsoft.Extensions.Hosting.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\lib\netstandard2.1\Microsoft.Extensions.Hosting.xml" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\LICENSE.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.8.0.0\useSharedDesignerContext.txt" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net6.0\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net6.0\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net7.0\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net7.0\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net8.0\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\netstandard2.1\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\netstandard2.1\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\LICENSE.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.8.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\Icon.png" />
+    <Content Include="packages\System.Text.Json.8.0.0\lib\net462\System.Text.Json.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\lib\net462\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.8.0.0\lib\net6.0\System.Text.Json.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\lib\net6.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.8.0.0\lib\net7.0\System.Text.Json.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\lib\net7.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.8.0.0\lib\net8.0\System.Text.Json.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\lib\net8.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.8.0.0\lib\netstandard2.0\System.Text.Json.dll" />
+    <Resource Include="packages\System.Text.Json.8.0.0\lib\netstandard2.0\System.Text.Json.xml" />
+    <Resource Include="packages\System.Text.Json.8.0.0\LICENSE.TXT" />
+    <Resource Include="packages\System.Text.Json.8.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Text.Json.8.0.0\useSharedDesignerContext.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Commands\" />
+    <Folder Include="Application\Models\" />
+    <Folder Include="Application\Queries\" />
+    <Folder Include="Domain\Interfaces\" />
+    <Folder Include="Infrastructure\Persistence\" />
+    <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="Infrastructure\Services\" />
+    <Folder Include="Presentation\Assets\Icons\" />
+    <Folder Include="Presentation\Assets\Music\" />
+    <Folder Include="Presentation\Assets\Sprites\" />
+    <Folder Include="Presentation\Assets\UI\" />
+    <Folder Include="Presentation\Controls\" />
+    <Folder Include="Presentation\Resources\" />
+    <Folder Include="Presentation\Styles\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\CommunityToolkit.Mvvm.8.4.0\build\CommunityToolkit.Mvvm.targets" Condition="Exists('packages\CommunityToolkit.Mvvm.8.4.0\build\CommunityToolkit.Mvvm.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\CommunityToolkit.Mvvm.8.4.0\build\CommunityToolkit.Mvvm.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CommunityToolkit.Mvvm.8.4.0\build\CommunityToolkit.Mvvm.targets'))" />
+  </Target>
+</Project>

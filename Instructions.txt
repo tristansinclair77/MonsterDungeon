@@ -1,0 +1,233 @@
+﻿### Monster Dungeon WPF Project Setup — Copilot Instructions
+
+---
+
+#### Step 0 — Overview
+
+We are setting up a **WPF application** in Visual Studio for the project **Monster Dungeon**, following a clean Domain-Driven and MVVM architecture. Copilot will automate code scaffolding and structure creation. The folder structure is already completed.
+
+---
+
+#### Step 1 — Configure Project References
+
+Tell Copilot to:
+
+```
+In Solution Explorer:
+1. Add project references:
+   - Presentation → Application
+   - Application → Domain, Infrastructure
+   - Infrastructure → Domain
+```
+
+This enforces proper dependency direction.
+
+---
+
+#### Step 2 — Set Startup Project and Window
+
+```
+Set Presentation as the startup project.
+Open App.xaml and replace the StartupUri with:
+<Application x:Class="MonsterDungeon.App"
+             StartupUri="Views/MainWindow.xaml">
+</Application>
+```
+
+Create `MainWindow.xaml` in `Presentation/Views` with:
+
+```xml
+<Grid>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+</Grid>
+```
+
+---
+
+#### Step 3 — Add Core NuGet Packages
+
+```
+Install the following packages:
+- CommunityToolkit.Mvvm
+- Microsoft.Extensions.DependencyInjection
+- Microsoft.Extensions.Hosting
+- System.Text.Json
+(Optional)
+- MahApps.Metro
+- FontAwesome.Sharp
+```
+
+Add these to `Application` and `Presentation` projects.
+
+---
+
+#### Step 4 — Configure Dependency Injection (DI)
+
+Ask Copilot to edit `App.xaml.cs` with:
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+public partial class App : Application
+{
+    public static IHost AppHost { get; private set; }
+
+    public App()
+    {
+        AppHost = Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) =>
+            {
+                services.AddSingleton<MainWindow>();
+                // Register ViewModels, Services, etc.
+            })
+            .Build();
+    }
+
+    protected override async void OnStartup(StartupEventArgs e)
+    {
+        await AppHost.StartAsync();
+        var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
+        mainWindow.Show();
+        base.OnStartup(e);
+    }
+}
+```
+
+---
+
+#### Step 5 — Add MainViewModel
+
+Create a new class `MainViewModel.cs` inside `Application/ViewModels`:
+
+```csharp
+using CommunityToolkit.Mvvm.ComponentModel;
+
+public partial class MainViewModel : ObservableObject
+{
+    [ObservableProperty]
+    private string title = "Monster Dungeon";
+}
+```
+
+Then, in `MainWindow.xaml.cs`:
+
+```csharp
+public partial class MainWindow : Window
+{
+    public MainWindow(MainViewModel vm)
+    {
+        InitializeComponent();
+        DataContext = vm;
+    }
+}
+```
+
+Register in DI:
+
+```csharp
+services.AddSingleton<MainViewModel>();
+```
+
+---
+
+#### Step 6 — Connect Game Systems (from GDD)
+
+Tell Copilot to create service classes:
+
+* `GridService` → Manages tile positions, player/enemy movement logic.
+* `EnemyFactory` → Spawns enemies and blocks using GDD rules.
+* `ThemeManager` → Manages dungeon themes, affinities, and town visuals.
+
+Each goes under the **Application/Services** folder.
+Use these summaries as context:
+
+* From GDD Section 2: Grid and Tile movement【Monster Dungeon Gdd, Core Gameplay】
+* From GDD Section 3: Enemy and Boss spawning【Monster Dungeon Gdd, Enemies & Obstacles】
+* From Dungeon Themes Document: Theme logic and transitions【Dungeon Themes Progression, Theme Interactions & Thematic Town Transitions】
+
+---
+
+#### Step 7 — Add Asset Structure
+
+In Presentation, ensure these exist:
+
+```
+/Assets
+   /Sprites
+   /Icons
+   /UI
+   /Music
+```
+
+All art will use 32x32 or 16x16 pixel retro 8-bit style.
+
+---
+
+#### Step 8 — Add Basic Game Models
+
+Create classes under `Domain/Entities`:
+
+* `Player`
+* `Enemy`
+* `Tile`
+* `Spell`
+* `Item`
+  Each should have basic properties (e.g., `Health`, `Attack`, `Position`, etc.) matching the GDD sections for combat, items, and spells.
+
+---
+
+#### Step 9 — Setup Gameplay Flow
+
+Ask Copilot to stub the gameplay flow loop service:
+
+```csharp
+public class GameFlowService
+{
+    private readonly GridService _grid;
+    private readonly EnemyFactory _enemyFactory;
+    private readonly ThemeManager _themeManager;
+
+    public GameFlowService(GridService grid, EnemyFactory enemyFactory, ThemeManager themeManager)
+    {
+        _grid = grid;
+        _enemyFactory = enemyFactory;
+        _themeManager = themeManager;
+    }
+
+    public async Task StartEncounterAsync() { /* TODO */ }
+    public async Task EndEncounterAsync() { /* TODO */ }
+}
+```
+
+Register in DI.
+
+---
+
+#### Step 10 — Verify Build & Launch
+
+1. Build the solution.
+2. Ensure MainWindow launches.
+3. Confirm DI resolves all services without exceptions.
+4. Prepare for future work — add placeholder content for the MainWindow (title, version label, etc.).
+
+---
+
+### ✅ Summary
+
+At this stage, the project includes:
+
+* Complete architecture (Domain, Application, Infrastructure, Presentation)
+* Configured DI and MVVM
+* Connected gameplay skeleton (Grid, Enemy, Theme)
+* Ready for future systems (Inventory, Combat, Town, UI)
+
+---
+
+Use Copilot prompts like:
+
+> “Generate a GridService class that handles an 8-tile wide grid where enemies descend one tile each turn after player movement.”
+
+> “Create a ThemeManager that applies different visual palettes and gameplay modifiers depending on dungeon theme.”
+
+> “Stub the EnemyFactory using data-driven enemy types and spawn logic based on difficulty.”
