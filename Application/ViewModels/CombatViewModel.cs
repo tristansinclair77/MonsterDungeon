@@ -6,6 +6,8 @@ using MonsterDungeon.Domain.Entities;
 using MonsterDungeon.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Threading;
+using System;
 
 namespace MonsterDungeon.Application.ViewModels
 {
@@ -13,16 +15,18 @@ namespace MonsterDungeon.Application.ViewModels
     {
         private readonly GridService _gridService;
         private readonly GameFlowService _gameFlowService;
+        private DispatcherTimer _bulletTimer;
     
         private string _selectedContextMenu = "Attack";
-        private ObservableCollection<ObservableCollection<Tile>> _currentGrid;
+  private ObservableCollection<ObservableCollection<Tile>> _currentGrid;
         private Player _player;
         private int _playerGridX;
         private int _playerGridY;
-        private int _moveCounter = 0;
+     private int _moveCounter = 0;
         private int _nextSpawnThreshold;
         private System.Random _random = new System.Random();
         private ObservableCollection<Enemy> _enemies;
+        private ObservableCollection<Bullet> _bullets;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -108,6 +112,19 @@ namespace MonsterDungeon.Application.ViewModels
             }
         }
 
+        public ObservableCollection<Bullet> Bullets
+        {
+      get => _bullets;
+       set
+            {
+         if (_bullets != value)
+                {
+    _bullets = value;
+            OnPropertyChanged();
+        }
+}
+        }
+
         public ICommand AttackCommand { get; }
         public ICommand OpenSpellsCommand { get; }
         public ICommand OpenItemsCommand { get; }
@@ -115,38 +132,113 @@ namespace MonsterDungeon.Application.ViewModels
 
         public CombatViewModel(GridService gridService, GameFlowService gameFlowService)
         {
-            _gridService = gridService;
-            _gameFlowService = gameFlowService;
+        _gridService = gridService;
+         _gameFlowService = gameFlowService;
    
-            // Initialize grid
-            _currentGrid = new ObservableCollection<ObservableCollection<Tile>>();
+     // Initialize grid
+      _currentGrid = new ObservableCollection<ObservableCollection<Tile>>();
 
             // Initialize with empty grid structure (8 columns × 10 rows)
             for (int y = 0; y < 10; y++)
-            {
-                var row = new ObservableCollection<Tile>();
-                for (int x = 0; x < 8; x++)
-                {
-                    row.Add(new Tile { X = x, Y = y });
-                }
-                _currentGrid.Add(row);
+   {
+        var row = new ObservableCollection<Tile>();
+      for (int x = 0; x < 8; x++)
+        {
+              row.Add(new Tile { X = x, Y = y });
+            }
+ _currentGrid.Add(row);
             }
 
-            // Initialize enemies collection
+  // Initialize enemies collection
             _enemies = new ObservableCollection<Enemy>();
+     
+        // Initialize bullets collection
+   _bullets = new ObservableCollection<Bullet>();
     
-        // Set initial spawn threshold (1-3 moves)
-            _nextSpawnThreshold = _random.Next(1, 4);
+            // Set initial spawn threshold (1-3 moves)
+     _nextSpawnThreshold = _random.Next(1, 4);
+            
+   // Initialize bullet animation timer
+            InitializeBulletTimer();
        
-            // Initialize commands
-            AttackCommand = new RelayCommand(Attack);
-       OpenSpellsCommand = new RelayCommand(OpenSpells);
+     // Initialize commands
+  AttackCommand = new RelayCommand(Attack);
+  OpenSpellsCommand = new RelayCommand(OpenSpells);
             OpenItemsCommand = new RelayCommand(OpenItems);
- MovePlayerCommand = new RelayCommand<int>(MovePlayer);
+            MovePlayerCommand = new RelayCommand<int>(MovePlayer);
 
-     // Initialize player at starting position (center-bottom)
-        _player = new Player();
+  // Initialize player at starting position (center-bottom)
+         _player = new Player();
             _gridService.SetPlayer(_player);
+        }
+
+        /// <summary>
+        /// Initialize timer for bullet movement animation
+   /// </summary>
+      private void InitializeBulletTimer()
+  {
+    _bulletTimer = new DispatcherTimer();
+         _bulletTimer.Interval = TimeSpan.FromMilliseconds(50); // Fast bullet movement
+_bulletTimer.Tick += BulletTimer_Tick;
+   }
+
+        /// <summary>
+        /// Handle bullet movement and collision each frame
+        /// </summary>
+        private void BulletTimer_Tick(object sender, EventArgs e)
+        {
+            ProcessBulletMovement();
+}
+
+        /// <summary>
+     /// Move bullets upward and check for collisions
+        /// </summary>
+        private void ProcessBulletMovement()
+        {
+   for (int i = _bullets.Count - 1; i >= 0; i--)
+            {
+   var bullet = _bullets[i];
+      
+     // Check collision with enemies at CURRENT position first (for bullets spawning on enemies)
+      var hitEnemyCurrent = _enemies.FirstOrDefault(e => e.X == bullet.X && e.Y == bullet.Y);
+         if (hitEnemyCurrent != null)
+     {
+ // Remove both bullet and enemy
+        _bullets.RemoveAt(i);
+   _enemies.Remove(hitEnemyCurrent);
+   System.Diagnostics.Debug.WriteLine($"Bullet hit enemy at spawn position X={hitEnemyCurrent.X}, Y={hitEnemyCurrent.Y}");
+     continue;
+   }
+           
+   int newY = bullet.Y - 1; // Move up
+
+     // Remove bullet if it goes off screen
+          if (newY < 0)
+     {
+_bullets.RemoveAt(i);
+   continue;
+  }
+
+     // Check collision with enemies at next position
+          var hitEnemy = _enemies.FirstOrDefault(e => e.X == bullet.X && e.Y == newY);
+         if (hitEnemy != null)
+     {
+ // Remove both bullet and enemy
+    _bullets.RemoveAt(i);
+          _enemies.Remove(hitEnemy);
+ System.Diagnostics.Debug.WriteLine($"Bullet hit enemy at X={hitEnemy.X}, Y={hitEnemy.Y}");
+          continue;
+     }
+
+       // Move bullet up
+        bullet.Y = newY;
+          }
+
+   // Stop timer if no bullets remain
+     if (_bullets.Count == 0)
+     {
+       _bulletTimer.Stop();
+         }
         }
 
         /// <summary>
@@ -177,8 +269,8 @@ namespace MonsterDungeon.Application.ViewModels
         /// <summary>
         /// Process enemy spawning and descent after player moves
    /// </summary>
-        private void ProcessEnemyMovement()
-        {
+      private void ProcessEnemyMovement()
+     {
       _moveCounter++;
      TrySpawnEnemies();
 
@@ -186,15 +278,16 @@ namespace MonsterDungeon.Application.ViewModels
      // so UI will update automatically when Y changes
       for (int i = _enemies.Count - 1; i >= 0; i--)
   {
-   var enemy = _enemies[i];
+ var enemy = _enemies[i];
       int newY = enemy.Y + 1;
 
-    // Check if next move is player row
-      if (newY >= GridService.GridHeight - 1)
+    // Check if enemy would move PAST the player's row (collision)
+if (newY > _player.Y)
      {
-      _enemies.RemoveAt(i); // Enemy disappears instead of colliding
+      _enemies.RemoveAt(i); // Enemy disappears when trying to move past player
+  System.Diagnostics.Debug.WriteLine($"Enemy removed - collided with player: X={enemy.X}, Y={enemy.Y} -> {newY}");
  continue;
-     }
+   }
 
          // Update enemy position - triggers PropertyChanged
       enemy.Y = newY;
@@ -241,7 +334,26 @@ namespace MonsterDungeon.Application.ViewModels
 
         private void Attack()
         {
-            SelectedContextMenu = "Attack";
+ SelectedContextMenu = "Attack";
+            
+      // Fire a bullet from the player's current position
+            if (_player != null)
+            {
+          var bullet = new Bullet
+             {
+        X = _player.X,
+          Y = _player.Y // Start at player position, will move up on first tick
+                };
+
+           _bullets.Add(bullet);
+     System.Diagnostics.Debug.WriteLine($"Bullet fired from player position X={_player.X}, Y={_player.Y}");
+
+                // Start bullet animation timer if not already running
+        if (!_bulletTimer.IsEnabled)
+     {
+    _bulletTimer.Start();
+       }
+}
         }
 
         private void OpenSpells()
