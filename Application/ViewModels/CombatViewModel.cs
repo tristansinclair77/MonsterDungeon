@@ -17,9 +17,11 @@ namespace MonsterDungeon.Application.ViewModels
   private readonly GridService _gridService;
    private readonly GameFlowService _gameFlowService;
       private bool _isRenderingActive = false;
-        private DateTime _lastBulletUpdate = DateTime.Now;
+    private DateTime _lastBulletUpdate = DateTime.Now;
+        private DispatcherTimer _enemyMovementTimer;
+     private bool _pendingEnemyMovement = false;
     
-        private string _selectedContextMenu = "Attack";
+    private string _selectedContextMenu = "Attack";
 private ObservableCollection<ObservableCollection<Tile>> _currentGrid;
   private Player _player;
      private int _moveCounter = 0;
@@ -133,41 +135,46 @@ set
         public CombatViewModel(GridService gridService, GameFlowService gameFlowService)
         {
  _gridService = gridService;
-        _gameFlowService = gameFlowService;
+  _gameFlowService = gameFlowService;
    
-            // Initialize grid
-            _currentGrid = new ObservableCollection<ObservableCollection<Tile>>();
+     // Initialize grid
+   _currentGrid = new ObservableCollection<ObservableCollection<Tile>>();
 
             // Initialize with empty grid structure (8 columns × 10 rows)
-            for (int y = 0; y < 10; y++)
+ for (int y = 0; y < 10; y++)
             {
 var row = new ObservableCollection<Tile>();
            for (int x = 0; x < 8; x++)
        {
   row.Add(new Tile { X = x, Y = y });
-                }
+      }
      _currentGrid.Add(row);
      }
 
-     // Initialize enemies collection
+ // Initialize enemies collection
             _enemies = new ObservableCollection<Enemy>();
      
-       // Initialize bullets collection
-          _bullets = new ObservableCollection<Bullet>();
+    // Initialize bullets collection
+  _bullets = new ObservableCollection<Bullet>();
     
     // Set initial spawn threshold (1-3 moves)
-   _nextSpawnThreshold = _random.Next(1, 4);
+ _nextSpawnThreshold = _random.Next(1, 4);
+   
+    // Initialize enemy movement timer for delayed movement after attacks
+       _enemyMovementTimer = new DispatcherTimer();
+    _enemyMovementTimer.Interval = TimeSpan.FromMilliseconds(300); // 300ms delay
+    _enemyMovementTimer.Tick += EnemyMovementTimer_Tick;
    
   // Start continuous rendering for smooth animations
     StartContinuousRendering();
     
         // Initialize commands
-         AttackCommand = new RelayCommand(Attack);
+       AttackCommand = new RelayCommand(Attack);
          OpenSpellsCommand = new RelayCommand(OpenSpells);
             OpenItemsCommand = new RelayCommand(OpenItems);
-      MovePlayerCommand = new RelayCommand<int>(MovePlayer);
+ MovePlayerCommand = new RelayCommand<int>(MovePlayer);
 
-            // Initialize player at starting position (center-bottom)
+// Initialize player at starting position (center-bottom)
       _player = new Player();
       _gridService.SetPlayer(_player);
         }
@@ -195,7 +202,22 @@ private void StartContinuousRendering()
      CompositionTarget.Rendering -= OnRendering;
                 _isRenderingActive = false;
        System.Diagnostics.Debug.WriteLine("Continuous rendering stopped");
-            }
+          }
+    }
+        
+  /// <summary>
+        /// Timer tick handler for delayed enemy movement after attacks
+        /// </summary>
+        private void EnemyMovementTimer_Tick(object sender, EventArgs e)
+        {
+        _enemyMovementTimer.Stop();
+    
+        if (_pendingEnemyMovement)
+        {
+      _pendingEnemyMovement = false;
+       ProcessEnemyMovement();
+    System.Diagnostics.Debug.WriteLine("Delayed enemy movement executed after attack");
+   }
         }
 
         /// <summary>
@@ -232,36 +254,54 @@ private void StartContinuousRendering()
    /// Move bullets upward smoothly using delta time (called from rendering loop)
         /// </summary>
     private void ProcessBulletMovementSmooth(double deltaTime)
-        {
+  {
         for (int i = _bullets.Count - 1; i >= 0; i--)
-            {
-    var bullet = _bullets[i];
-
-            // Update pixel position based on velocity and delta time
-              bullet.PixelY += bullet.VelocityY * deltaTime;
-
-                // Check if bullet goes off screen (top boundary at Y=0 = 0 pixels)
-    if (bullet.PixelY < 0)
     {
-          _bullets.RemoveAt(i);
+    var bullet = _bullets[i];
+            
+ // Store the previous pixel position before updating
+            double previousPixelY = bullet.PixelY;
+
+         // Update pixel position based on velocity and delta time
+    bullet.PixelY += bullet.VelocityY * deltaTime;
+
+     // Check if bullet goes off screen (top boundary at Y=0 = 0 pixels)
+  if (bullet.PixelY < 0)
+    {
+        _bullets.RemoveAt(i);
        System.Diagnostics.Debug.WriteLine($"Bullet removed at top boundary, was at PixelY={bullet.PixelY:F2}");
  continue;
   }
 
-       // Check collision with enemies at current grid position
-      var hitEnemy = _enemies.FirstOrDefault(e => e.X == bullet.X && e.Y == bullet.Y);
-            if (hitEnemy != null)
-           {
-       // Remove both bullet and enemy
-   _bullets.RemoveAt(i);
-      _enemies.Remove(hitEnemy);
-                  System.Diagnostics.Debug.WriteLine($"Bullet hit enemy at X={hitEnemy.X}, Y={hitEnemy.Y}");
-             continue;
-       }
+ // Check collision with enemies - check all grid cells the bullet passed through
+// Convert pixel positions to grid positions to check for collisions
+            int currentGridY = (int)(bullet.PixelY / 100);
+            int previousGridY = (int)(previousPixelY / 100);
+            
+ // Check all grid Y positions the bullet passed through this frame
+    bool hitDetected = false;
+ for (int checkY = previousGridY; checkY >= currentGridY; checkY--)
+            {
+ var hitEnemy = _enemies.FirstOrDefault(e => e.X == bullet.X && e.Y == checkY);
+        if (hitEnemy != null)
+       {
+            // Remove both bullet and enemy
+     _bullets.RemoveAt(i);
+  _enemies.Remove(hitEnemy);
+           System.Diagnostics.Debug.WriteLine($"Bullet hit enemy at X={hitEnemy.X}, Y={hitEnemy.Y} (bullet PixelY: {bullet.PixelY:F2})");
+               hitDetected = true;
+          break;
+   }
+            }
+      
+        if (hitDetected)
+       {
+       continue;
+  }
   }
 
      // Stop rendering if no bullets remain
-            if (_bullets.Count == 0)
+       if (_bullets.Count == 0)
    {
    StopContinuousRendering();
      }
@@ -361,7 +401,7 @@ private void StartContinuousRendering()
  private void Attack()
         {
     SelectedContextMenu = "Attack";
-      
+   
    // Fire a bullet from the player's current position
             if (_player != null)
       {
@@ -372,19 +412,25 @@ private void StartContinuousRendering()
            PixelY = _player.Y * 100 // Initialize pixel position (100 pixels per grid cell)
        };
 
-              _bullets.Add(bullet);
+        _bullets.Add(bullet);
     System.Diagnostics.Debug.WriteLine($"Bullet fired from player position X={_player.X}, Y={_player.Y}, PixelY={bullet.PixelY}");
 
             // Start continuous rendering for smooth animation
-                if (!_isRenderingActive)
-    {
-           _lastBulletUpdate = DateTime.Now;
+     if (!_isRenderingActive)
+ {
+      _lastBulletUpdate = DateTime.Now;
       StartContinuousRendering();
-      }
-        }
+   }
+        
+        // Delay enemy movement to allow bullet to travel and potentially hit enemies
+    // This prevents enemies from moving immediately and disappearing before bullet collision
+ _pendingEnemyMovement = true;
+        _enemyMovementTimer.Start();
+        System.Diagnostics.Debug.WriteLine("Enemy movement delayed by 300ms to allow bullet travel");
+  }
         }
 
-        private void OpenSpells()
+      private void OpenSpells()
         {
    SelectedContextMenu = "Spells";
         }

@@ -1,1 +1,8 @@
-﻿
+﻿List of things that need to be done:
+1 - When I click Attack, this counts as a character action. Using a spell, Attacking or moving all count as player actions. Whenever I take an action, enemies take an action directly after...so the enemies should move when I click attack.
+2 - When I click attack or move I shouldn't be able to move or attack again for a cooldown period. Set a cooldown period for all player actions (this includes Spells in the future when implemented) and add a DEBUG menu option to tweak the player cooldown value. Make it a text field so I can type a number in.
+3 - When an enemy reaches the player and disappears, they should "deal damage" to the player. Since this is not implemented yet, let's just give the player a health value and have the enemies that disappear on the player row remove 1 from the player health. Add a DEBUG menu option that allows me to change the current and maximum player health value.
+4 - When I click on Spells, I expect the area above to change to the "Spell Menu". This spell menu should be a small grid of spell icons that indicate different spells the player can select. For now, just the grid and icons should appear.
+5 - Enemies need to be able to fire at the player.  Every few turns, allow the enemies to fire a projectile downwards at the player row. This projectile should remove 1 from the player health value if it hits the player sprite only. Add a DEBUG menu option to tweak the enemy fire rate (how many turns between enemy shots).
+
+Do not make all changes above at once. For now, just implement item #1 from the list above.
