@@ -254,6 +254,7 @@
     <Compile Include="Infrastructure\Services\ThemeStorageService.cs" />
     <Compile Include="Presentation\Converters\GridToPixelConverter.cs" />
     <Compile Include="Presentation\Converters\HexColorToBrushConverter.cs" />
+    <Compile Include="Presentation\Converters\PixelYConverter.cs" />
     <Compile Include="Presentation\Helpers\ColorPickerHelper.cs" />
     <Compile Include="Presentation\Views\Debug\DebugMenu.xaml.cs">
       <DependentUpon>DebugMenu.xaml</DependentUpon>
@@ -288,6 +289,9 @@
     <None Include="ATTACK_SYSTEM_REFERENCE.md" />
     <None Include="ATTACK_SYSTEM_TESTING.md" />
     <None Include="BUG_FIX_SUMMARY.md" />
+    <None Include="BUILD_FIX_SUMMARY.md" />
+    <None Include="BULLET_FIX_QUICK_REFERENCE.md" />
+    <None Include="BULLET_MOVEMENT_FIX_SUMMARY.md" />
     <None Include="BULLET_SPAWN_FIX.md" />
     <None Include="COMPLETE_FIX_SUMMARY.md" />
     <None Include="Domain\README.md" />
@@ -344,6 +348,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="README.md" />
+    <None Include="SMOOTH_BULLET_MOVEMENT_FINAL.md" />
+    <None Include="SMOOTH_BULLET_QUICK_REF.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
