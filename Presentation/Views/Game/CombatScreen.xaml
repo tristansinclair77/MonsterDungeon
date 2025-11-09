@@ -10,6 +10,7 @@
     
     <UserControl.Resources>
     <converters:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
+     <converters:GridToPixelConverter x:Key="GridToPixelConverter"/>
     </UserControl.Resources>
   
     <Viewbox Stretch="Uniform">
@@ -66,7 +67,7 @@ HorizontalAlignment="Center"/>
          <TextBlock Text="{Binding SelectedContextMenu, StringFormat='Currently Selected: {0}'}" 
   FontSize="14" 
         Foreground="{Binding DataContext.ThemeManager.WindowTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource HexColorToBrushConverter}}"
-            TextWrapping="Wrap"/>
+  TextWrapping="Wrap"/>
         </StackPanel>
             </ScrollViewer>
      </Border>
@@ -146,7 +147,7 @@ Cursor="Hand"/>
      <ColumnDefinition Width="100"/>
     </Grid.ColumnDefinitions>
 
-      <!-- Row 0 -->
+      <!-- Row 0 - HIGHLIGHTED FOR TESTING -->
       <Border Grid.Row="0" Grid.Column="0" Background="#2a2a4e" BorderBrush="#444466" BorderThickness="1"/>
        <Border Grid.Row="0" Grid.Column="1" Background="#2a2a4e" BorderBrush="#444466" BorderThickness="1"/>
     <Border Grid.Row="0" Grid.Column="2" Background="#2a2a4e" BorderBrush="#444466" BorderThickness="1"/>
@@ -248,21 +249,59 @@ Cursor="Hand"/>
 
   <!-- Player Sprite -->
     <Border 
- Grid.Row="{Binding PlayerGridY}" 
+Grid.Row="{Binding PlayerGridY}" 
      Grid.Column="{Binding PlayerGridX}"
     Background="#4CAF50"
-          CornerRadius="45"
+  CornerRadius="45"
    Margin="10"
      BorderBrush="#81C784"
-  BorderThickness="3">
-     <TextBlock 
+  BorderThickness="3"
+        Panel.ZIndex="2">
+  <TextBlock 
     Text="P" 
-        FontSize="48" 
+    FontSize="48" 
     FontWeight="Bold"
-      Foreground="White"
-          HorizontalAlignment="Center"
+Foreground="White"
+HorizontalAlignment="Center"
     VerticalAlignment="Center"/>
 </Border>
+
+<!-- Enemy Container - using ItemsControl with Canvas positioning -->
+<ItemsControl ItemsSource="{Binding Enemies}" x:Name="EnemyContainer" Panel.ZIndex="1">
+    <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+            <!-- Simple Canvas - we'll position manually -->
+   <Canvas Width="800" Height="1000"/>
+        </ItemsPanelTemplate>
+    </ItemsControl.ItemsPanel>
+    <ItemsControl.ItemContainerStyle>
+        <Style TargetType="ContentPresenter">
+        <!-- Position on canvas using pixel coordinates -->
+          <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource GridToPixelConverter}}"/>
+        <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource GridToPixelConverter}, ConverterParameter=Y}"/>
+        </Style>
+    </ItemsControl.ItemContainerStyle>
+    <ItemsControl.ItemTemplate>
+        <DataTemplate>
+       <Border 
+ Background="#F44336"
+  CornerRadius="45"
+     Width="80"
+  Height="80"
+      Margin="10"
+         BorderBrush="#E57373"
+      BorderThickness="3">
+ <TextBlock 
+     Text="E" 
+  FontSize="48" 
+FontWeight="Bold"
+       Foreground="White"
+         HorizontalAlignment="Center"
+    VerticalAlignment="Center"/>
+ </Border>
+    </DataTemplate>
+    </ItemsControl.ItemTemplate>
+</ItemsControl>
    </Grid>
    </Viewbox>
  </Border>

@@ -1,118 +1,95 @@
-﻿### Visual Studio Copilot Instructions — Player Movement Implementation
+﻿### Visual Studio Copilot Instructions — Player & Enemy Movement Implementation
 
 #### Objective:
 
-Implement keyboard-based player movement for the combat grid within the **Monster Dungeon** project.
+Implement keyboard-based player movement and synchronized enemy descent behavior for the combat grid within the **Monster Dungeon** project.
 
 ---
 
-### Step 1: Create or Update Player Sprite Handling
+## ENEMY BEHAVIOR (New Functionality)
 
-* Locate or create a class handling **player rendering and position** (e.g., `PlayerSpriteControl` or within the upcoming `GameView.xaml`).
-* Ensure the **Player entity** has `X` and `Y` coordinates corresponding to grid tile indices.
-* Place the **player sprite** initially in one of the **bottom row grid slots** (e.g., `Y = GridHeight - 1`).
+### Step 5: Spawn Enemies Randomly on Top Row
 
-```csharp
-player.Position = new Point(GridWidth / 2, GridHeight - 1); // Center-bottom position
-```
-
----
-
-### Step 2: Enable Combat Menu Keyboard Input
-
-* In `GameView.xaml.cs` or equivalent combat UI class:
-
-  * Enable **keyboard focus** by setting `Focusable = true` and `Focus()` on load.
-  * Subscribe to the `KeyDown` event for movement input.
+* Every few player moves (random between 1–3), spawn new enemies in **random empty top-row tiles**.
+* Limit spawn count to **1–3 enemies per wave**.
+* Use a simple turn counter to decide when to spawn.
 
 ```csharp
-this.KeyDown += OnKeyDown;
-```
+private int moveCounter = 0;
+private Random random = new Random();
+private List<Enemy> enemies = new List<Enemy>();
 
----
-
-### Step 3: Handle Left and Right Arrow Input
-
-* Implement `OnKeyDown` event to process **Left** and **Right** key presses.
-* Only respond to **key taps**, not held-down keys.
-
-  * Use a **boolean flag** or **KeyUp reset** mechanism to prevent continuous movement.
-* When the key is pressed:
-
-  * Move the player **one tile** left or right if within grid bounds.
-  * If at an edge, ignore movement.
-
-```csharp
-private bool keyPressed = false;
-
-private void OnKeyDown(object sender, KeyEventArgs e)
+private void TrySpawnEnemies()
 {
-    if (keyPressed) return; // Prevent continuous movement
-
-    if (e.Key == Key.Left)
+    if (moveCounter >= random.Next(1, 4)) // 1–3 moves
     {
-        MovePlayer(-1);
-        keyPressed = true;
-    }
-    else if (e.Key == Key.Right)
-    {
-        MovePlayer(1);
-        keyPressed = true;
+        int spawnCount = random.Next(1, 4); // 1–3 enemies
+        for (int i = 0; i < spawnCount; i++)
+        {
+            int x = random.Next(0, GridService.GridWidth);
+            if (!enemies.Any(e => e.Position.Y == 0 && e.Position.X == x))
+            {
+                enemies.Add(new Enemy { Position = new Point(x, 0) });
+            }
+        }
+        moveCounter = 0;
     }
 }
+```
 
-private void OnKeyUp(object sender, KeyEventArgs e)
+### Step 6: Enemy Descent Logic
+
+* Each time the player moves, enemies descend by one tile.
+* If an enemy is about to move into the player’s row, remove it instead.
+
+```csharp
+private void ProcessEnemyMovement()
 {
-    keyPressed = false; // Reset when key is released
+    moveCounter++;
+    TrySpawnEnemies();
+
+    for (int i = enemies.Count - 1; i >= 0; i--)
+    {
+        var enemy = enemies[i];
+        int newY = enemy.Position.Y + 1;
+
+        // Check if next move is player row
+        if (newY >= GridService.GridHeight - 1)
+        {
+            enemies.RemoveAt(i); // Enemy disappears instead of colliding
+            continue;
+        }
+
+        enemy.Position = new Point(enemy.Position.X, newY);
+    }
+
+    RenderEnemies();
 }
 ```
 
----
+### Step 7: Rendering Enemies
 
-### Step 4: Define MovePlayer() Logic
-
-* Ensure the move checks grid boundaries before updating the player’s position.
+* Redraw enemy sprites each frame after movement.
+* Example (Canvas-based):
 
 ```csharp
-private void MovePlayer(int direction)
+foreach (var enemy in enemies)
 {
-    int newX = player.Position.X + direction;
-
-    if (newX >= 0 && newX < GridService.GridWidth)
-    {
-        player.Position = new Point(newX, player.Position.Y);
-        GridService.UpdatePlayerPosition(player); // optional helper
-        RenderPlayer(); // update visual
-    }
+    Canvas.SetLeft(enemy.Sprite, enemy.Position.X * TileSize);
+    Canvas.SetTop(enemy.Sprite, enemy.Position.Y * TileSize);
 }
 ```
 
 ---
 
-### Step 5: Rendering Update
+### Step 8: Testing Checklist
 
-* After updating position, visually re-render the **player sprite** in the new grid slot.
-* Use either a **Canvas.SetLeft/SetTop()** method or **Grid-based binding** in XAML.
-
-Example (if using Canvas layout):
-
-```csharp
-Canvas.SetLeft(playerSprite, player.Position.X * TileSize);
-Canvas.SetTop(playerSprite, player.Position.Y * TileSize);
-```
+✅ Player moves one tile per tap only (not continuous)
+✅ Enemies spawn randomly after 1–3 player moves
+✅ 1–3 enemies spawn at random top-row positions
+✅ Enemies move down 1 tile each time the player moves
+✅ Enemies vanish when reaching the player’s row
 
 ---
 
-### Step 6: Testing
-
-* Run the project.
-* Open the Combat Menu.
-* Verify that:
-
-  * Pressing **Left** or **Right** moves the sprite exactly one tile.
-  * Holding the key does not trigger continuous movement.
-  * The sprite cannot move beyond grid edges.
-
----
-
-**Result:** The player character sprite correctly responds to discrete Left/Right arrow key presses while respecting grid boundaries and combat mode state.
+**Result:** The combat grid now dynamically spawns enemies that descend synchronously with player movement, maintaining consistent turn-based rhythm.

@@ -251,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Services\ThemeStorageService.cs" />
+    <Compile Include="Presentation\Converters\GridToPixelConverter.cs" />
     <Compile Include="Presentation\Converters\HexColorToBrushConverter.cs" />
     <Compile Include="Presentation\Helpers\ColorPickerHelper.cs" />
     <Compile Include="Presentation\Views\Debug\DebugMenu.xaml.cs">
@@ -284,8 +285,20 @@
     </EmbeddedResource>
     <None Include="Application\README.md" />
     <None Include="ARCHITECTURE_DOCUMENTATION.md" />
+    <None Include="BUG_FIXES_APPLIED.md" />
+    <None Include="BUG_FIXES_READY.md" />
     <None Include="BUG_FIXES_SUMMARY.md" />
+    <None Include="CANVAS_SOLUTION.md" />
+    <None Include="CRITICAL_FIX_APPLIED.md" />
+    <None Include="DEBUG_CHECKLIST.md" />
+    <None Include="DIAGNOSTIC_GUIDE.md" />
     <None Include="Domain\README.md" />
+    <None Include="ENEMY_BEHAVIOR_IMPLEMENTATION.md" />
+    <None Include="ENEMY_BEHAVIOR_TESTING.md" />
+    <None Include="FINAL_FIX_READY.md" />
+    <None Include="FINAL_IMPLEMENTATION_COMPLETE.md" />
+    <None Include="IMMEDIATE_TEST_GUIDE.md" />
+    <None Include="IMPLEMENTATION_COMPLETE.md" />
     <None Include="IMPLEMENTATION_SUMMARY.md" />
     <None Include="Infrastructure\README.md" />
     <None Include="packages.config" />
@@ -332,6 +345,7 @@
     <None Include="packages\System.Text.Json.8.0.0\buildTransitive\netstandard2.0\System.Text.Json.targets" />
     <None Include="packages\System.Text.Json.8.0.0\PACKAGE.md" />
     <None Include="packages\System.Text.Json.8.0.0\System.Text.Json.8.0.0.nupkg" />
+    <None Include="POSITIONING_FIX.md" />
     <None Include="Presentation\README.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -339,8 +353,13 @@
     </None>
     <None Include="QUICK_FIX_VERIFICATION.md" />
     <None Include="QUICK_START_GUIDE.md" />
+    <None Include="QUICK_START_TESTING.md" />
     <None Include="README.md" />
+    <None Include="RED_ROW_TEST.md" />
+    <None Include="ROW_IDENTIFICATION_GUIDE.md" />
     <None Include="TESTING_CHECKLIST.md" />
+    <None Include="THE_REAL_FIX.md" />
+    <None Include="VISUAL_DIAGNOSTIC_TEST.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
